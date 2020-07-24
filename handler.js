@@ -1,13 +1,13 @@
 'use strict';
 
 module.exports.health = async event => {
-  const package = require('./package.json');
+  const pack = require('./package.json');
   return {
     statusCode: 200,
     body: JSON.stringify(
       {
         message: 'Your lambda is running!',
-        version: package.version,
+        version: pack.version,
         input: event,
       },
       null,
@@ -38,31 +38,27 @@ module.exports.create = async event => {
     .catch(error => console.error(error));
 };
 
-module.exports.charge = async event => {
+module.exports.intent = async event => {
   const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
   const body = JSON.parse(event.body);
   
   return stripe.customers.create({ email: body.email })
     .then(customer => {
-      return stripe.invoiceItems.create({
+      return stripe.paymentIntents.create({
         customer: customer.id,
         amount: body.price,
         currency: body.currency,
         description: body.description,
+        receipt_email: body.email,
+        payment_method_types: ['card'],
       });
     })
-    .then((invoiceItem) => {
-      return stripe.invoices.create({
-        collection_method: 'send_invoice',
-        customer: invoiceItem.customer,
-      });
-    })
-    .then(invoice => {
+    .then(intent => {
       return {
         statusCode: 200,
         body: JSON.stringify(
           {
-            invoice
+            intent
           },
           null,
           2

@@ -1,8 +1,5 @@
 'use strict';
 
-import Stripe from 'stripe';
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-
 module.exports.health = async event => {
   return {
     statusCode: 200,
@@ -22,6 +19,9 @@ module.exports.health = async event => {
 };
 
 module.exports.create = async event => {
+  import Stripe from 'stripe';
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
   stripe.customers.create({
     email: 'customer@example.com',
   })

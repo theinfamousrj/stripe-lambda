@@ -1,0 +1,29 @@
+{
+  "name": "stripe-lambda",
+  "version": "1.0.0",
+  "description": "This is just an example of how to set up a lambda to work with stripe payments",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theinfamousrj/stripe-lambda.git"
+  },
+  "keywords": [
+    "stripe",
+    "lambda"
+  ],
+  "author": "RJ Hill",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/theinfamousrj/stripe-lambda/issues"
+  },
+  "homepage": "https://github.com/theinfamousrj/stripe-lambda#readme",
+  "dependencies": {
+    "stripe": "^8.78.0"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
+  }
+}

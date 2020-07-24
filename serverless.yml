@@ -58,11 +58,18 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  hello:
-    handler: handler.hello
+  health:
+    handler: handler.health
     events:
       - http:
-          path: hello
+          path: health
+          method: get
+          cors: true
+  create:
+    handler: handler.create
+    events:
+      - http:
+          path: create
           method: get
           cors: true
 #    The following are a few example events you can configure
